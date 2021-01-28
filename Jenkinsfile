@@ -28,6 +28,10 @@ pipeline {
     }
 
     stage('package') {
+      when {
+        beforeAgent true
+        branch 'master'
+      }
       agent {
         docker {
           image 'maven:3.6.3-jdk-11-slim'
@@ -42,10 +46,13 @@ pipeline {
     }
 
     stage('Docker BnP') {
+      when {
+        beforeAgent true
+        branch 'master'
+      }
       agent any
       steps {
         script {
-          if ('master' == env. GIT_BRANCH)
           docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
             def dockerImage = docker.build("dacker4u/sysfoo:v${env.BUILD_ID}", "./")
             dockerImage.push()
