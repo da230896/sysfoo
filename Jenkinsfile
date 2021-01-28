@@ -62,6 +62,7 @@ pipeline {
         }
 
       }
+    }
     stage('Deploy to dev') {
       when {
         beforeAgent true
@@ -72,9 +73,8 @@ pipeline {
         script {
          echo 'Deploying to Dev Environment with Docker Compose'
          sh 'docker-compose up -d' 
-	}
+	      }
       }
-
     }
   }
 }
