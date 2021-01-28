@@ -45,7 +45,7 @@ pipeline {
       agent any
       steps {
         script {
-          if ('master' == ${env. GIT_BRANCH})
+          if ('master' == env. GIT_BRANCH)
           docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
             def dockerImage = docker.build("dacker4u/sysfoo:v${env.BUILD_ID}", "./")
             dockerImage.push()
